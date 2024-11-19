@@ -32,12 +32,12 @@ Include conf/extra/httpd-vhosts.conf
 ### 4. Install Certificate
 To install the certificate open `server.crt` located in `.../xampp/apache/conf/ssl.crt` and follow the following steps:
 #### Step 1:
-![InstallCert1](assets/InstallCert1.png)
+<img src="assets/InstallCert1.png" alt="InstallCert1" width="400">
 #### Step 2:
-![InstallCert2](assets/InstallCert2.png)
+<img src="assets/InstallCert2.png" alt="InstallCert2" width="400">
 #### Step 3:
-![InstallCert3](assets/InstallCert3.png)
+<img src="assets/InstallCert3.png" alt="InstallCert3" width="400">
 #### Step 4:
-![InstallCert4](assets/InstallCert4.png)
+<img src="assets/InstallCert4.png" alt="InstallCert4" width="400">
 #### Step 5:
-![InstallCert5](assets/InstallCert5.png)
+<img src="assets/InstallCert5.png" alt="InstallCert5" width="400">
