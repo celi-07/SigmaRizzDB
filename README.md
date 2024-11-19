@@ -2,7 +2,7 @@
 
 ## SSL Encryption Set Up
 
-1. Create Virtual Host
+### 1. Create Virtual Host
    ```apache
    <VirtualHost *:443>
       DocumentRoot "C:/xampp/htdocs/"
@@ -19,9 +19,9 @@
       CustomLog "logs/dummy-host2.example.com-access.log" common
     </VirtualHost>
    ```
-3. Create Certificate
+### 2. Create Certificate
    Generate SSL Certificate by running `makecert.bat` in `xampp/apache` and fill in your data. You can simply enter to fill the data with its default data provided.
    
 
-4. Modifying Virtual Host
-5. Install Certificate
+### 3. Modifying Virtual Host
+### 4. Install Certificate
