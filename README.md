@@ -21,7 +21,7 @@
    ```
 ### 2. Create Certificate
    Generate SSL Certificate by running `makecert.bat` in `xampp/apache` and fill in your data. You can simply enter to fill the data with its default data provided.
-   ![sslMakecret](assets/sslMakecret)
+   ![sslMakecret](assets/sslMakecret.png)
 
 ### 3. Modifying Virtual Host
 ### 4. Install Certificate
