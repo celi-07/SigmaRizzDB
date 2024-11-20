@@ -51,23 +51,55 @@ If the server only runs when in `https://localhost` and return `400: Bad Gateway
 
 ## Backup and Restore
 
-### 1. Create the bat file
+### 1. Create bat file
+This bat file will act as the file the backups the database. Code may vary depending on your `file location` and `variable names`. This script is made on `Windows` operating system.
 ```php
 @echo off
-set BACKUP_DIR=C:\path\to\backup\directory
-set DATABASE_NAME=LibraryDB
+set BACKUP_DIR="E:\-- Semester 3\Database Technology\BackUp and Restoration"
+set DATABASE_NAME=library
+
 for /f "tokens=2 delims==" %%I in ('wmic OS GET localdatetime /VALUE') do set datetime=%%I
-set TIMESTAMP=%datetime:~0,4%-%datetime:~4,2%-%datetime:~6,2% %datetime:~8,2%:%datetime:~10,2%:%datetime:~12,2%
+
+set YYYY=%datetime:~0,4%
+set MM=%datetime:~4,2%
+set DD=%datetime:~6,2%
+set HH=%datetime:~8,2%
+set MIN=%datetime:~10,2%
+set SS=%datetime:~12,2%
+
+set TIMESTAMP=%YYYY%-%MM%-%DD%_%HH%-%MIN%-%SS%
 set MYSQL_USER=admin
 set MYSQL_PASSWORD=password
 
-"C:\xampp\mysql\bin\mysqldump.exe" -u %MYSQL_USER% -p%MYSQL_PASSWORD% %DB_NAME% > %BACKUP_DIR%\backup_%DATABASE_NAME%_%TIMESTAMP%.sql
+"C:\xampp\mysql\bin\mysqldump.exe" -u %MYSQL_USER% -p%MYSQL_PASSWORD% %DATABASE_NAME% > %BACKUP_DIR%\backup_%DATABASE_NAME%_%TIMESTAMP%.sql
 
 if %ERRORLEVEL% EQU 0 (
     echo Backup completed successfully.
 ) else (
     echo Backup failed. Check your settings and permissions.
 )
+pause
 ```
 
+### 2. Create the user
+Run the following query with `username` and `password` same as what you wrote in the `backup.bat` file.
+```sql
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
+GRANT 'admin' TO 'admin'@'localhost';
+```
 
+### 3. Automate the backup
+In `Windows`, the `Task Scheduler` can help you create automatic recurring runs for the `backup.bat` file.
+#### Step 1:
+
+
+#### Step 2:
+
+
+#### Step 3:
+
+
+#### Step 4:
+
+
+#### Step 5:
