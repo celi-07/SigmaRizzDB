@@ -49,4 +49,25 @@ To install the certificate open `server.crt` located in `.../xampp/apache/conf/s
 ### 5. Checking
 If the server only runs when in `https://localhost` and return `400: Bad Gateway` in `localhost` then you have finished setting up ssl encryption.
 
+## Backup and Restore
+
+### 1. Create the bat file
+```php
+@echo off
+set BACKUP_DIR=C:\path\to\backup\directory
+set DATABASE_NAME=LibraryDB
+for /f "tokens=2 delims==" %%I in ('wmic OS GET localdatetime /VALUE') do set datetime=%%I
+set TIMESTAMP=%datetime:~0,4%-%datetime:~4,2%-%datetime:~6,2% %datetime:~8,2%:%datetime:~10,2%:%datetime:~12,2%
+set MYSQL_USER=admin
+set MYSQL_PASSWORD=password
+
+"C:\xampp\mysql\bin\mysqldump.exe" -u %MYSQL_USER% -p%MYSQL_PASSWORD% %DB_NAME% > %BACKUP_DIR%\backup_%DATABASE_NAME%_%TIMESTAMP%.sql
+
+if %ERRORLEVEL% EQU 0 (
+    echo Backup completed successfully.
+) else (
+    echo Backup failed. Check your settings and permissions.
+)
+```
+
 
