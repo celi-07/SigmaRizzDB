@@ -91,15 +91,22 @@ GRANT 'admin' TO 'admin'@'localhost';
 ### 3. Automate the backup
 In `Windows`, the `Task Scheduler` can help you create automatic recurring runs for the `backup.bat` file.
 #### Step 1:
-
+<img src="assets/TaskScheduler1.png" alt="TaskScheduler1" width="400">
 
 #### Step 2:
-
+<img src="assets/TaskScheduler2.png" alt="TaskScheduler2" width="400">
 
 #### Step 3:
-
+<img src="assets/TaskScheduler3.png" alt="TaskScheduler3" width="400">
 
 #### Step 4:
-
+<img src="assets/TaskScheduler4.png" alt="TaskScheduler4" width="400">
 
 #### Step 5:
+<img src="assets/TaskScheduler5.png" alt="TaskScheduler5" width="400">
+
+#### Step 6:
+<img src="assets/TaskScheduler6.png" alt="TaskScheduler6" width="400">
+
+#### Step 7:
+<img src="assets/TaskScheduler7.png" alt="TaskScheduler7" width="400">
