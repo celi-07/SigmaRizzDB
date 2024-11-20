@@ -3,12 +3,12 @@
 ## SSL Encryption Set Up
 
 ### 1. Create Virtual Host
-Add the following lines at the end of `httpd-vhosts.conf` file located in `.../xampp/apache/conf/extra` 
+Add the following lines at the end of `httpd-vhosts.conf` file located in `.../xampp/apache/conf/extra`. The port can change based on your need but by default it is port 80. Yet, if you are using other ports additional set ups are required.
 ```apache
-<VirtualHost *:443>
+<VirtualHost *:80>
    DocumentRoot "C:/xampp/htdocs/"
    ServerName localhost
-   SSLEngine Oon	
+   SSLEngine on	
    SSLCertificateFile "conf/ssl.crt/server.crt"
    SSLCertificateKeyFile "conf/ssl.key/server.key"
    <Directory "C:/xampp/htdocs/">
@@ -45,3 +45,8 @@ To install the certificate open `server.crt` located in `.../xampp/apache/conf/s
 
 #### Step 5:
 <img src="assets/InstallCert5.png" alt="InstallCert5" width="400">
+
+### 5. Checking
+If the server only runs when in `https://localhost` and return `400: Bad Gateway` in `localhost` then you have finished setting up ssl encryption.
+
+
