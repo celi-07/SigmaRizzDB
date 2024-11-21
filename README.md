@@ -4,8 +4,7 @@ This project is a database management system project that is developed for the n
 
 ## Design Creation
 Entity Relationship Diagram:
-The Entity Relationship Diagram below is created with having 6 tables which are `User`, `Author`, `Book`, `Stock`, `Reservation`, and `Loan`.
-
+The Entity Relationship Diagram below is created with having 6 tables which are `User`, `Author`, `Book`, `Stock`, `Reservation`, and `Loan`.\
 ![ERD](erd/EntityRelationshipDiagramLibraryDatabase.jpg)
 
 ## Schema Creation
@@ -37,17 +36,15 @@ CREATE TABLE Author (
     FULLTEXT(Name)
 ) ENGINE = InnoDB;
 ```
-The table has the following relationship:
-
+The table has the following relationship:\
 One `Author` can have many `Books`
 
-The table has the following attributes:
-
-`Id`         : The unique identifier of the table which is configured with UUID [`PRIMARY KEY`]
-
-`Name`       : The name of the author. Added `FULLTEXT` for fast searching.
-
-`Birthdate`  : The birthdate of the author
+The table has the following attributes:\
+| Attributes     | Description                                                                     |
+|----------------|---------------------------------------------------------------------------------|
+|`Id`            | The unique identifier of the table which is configured with UUID [`PRIMARY KEY`] |
+|`Name`          | The name of the author. Added `FULLTEXT` for fast searching. |
+|`Birthdate`     | The birthdate of the author |
 
 ### 3. Book
 ```sql
@@ -61,14 +58,85 @@ CREATE TABLE Book (
     FULLTEXT(Title)
 ) ENGINE = InnoDB;
 ```
-The table has the following relationship:
+The table has the following relationship:\
 One `Book` can have many `Reservation` but can only have one `Stock`
 
-The table has the following attributes:
-`Id`         : The unique identifier of the table which is configured with UUID
-`ISBN`       : The unique code of each book. Added `CHECK` to make sure the `ISBN` is valid.
-`Title`      : The book title
-`AuthorId`   : Refers to the `Id` of the `Author`
+The table has the following attributes:\
+| Attributes     | Description                                                                     |
+|----------------|---------------------------------------------------------------------------------|
+|`Id`            | The unique identifier of the table which is configured with UUID [`PRIMARY KEY`] |
+|`ISBN`          | The unique code of each book. Added `CHECK` to make sure the `ISBN` is valid. |
+|`Title`         | The book title. Added `FULLTEXT` for fast searching. |
+|`AuthorId`      | Refers to the `Id` of the `Author` [`FOREIGN KEY`] |
+
+## 4. Stock
+```sql
+CREATE TABLE Stock (
+    BookId CHAR(36) PRIMARY KEY,
+    Stock INT NOT NULL,
+    CHECK(Stock >= 0 AND Stock <= InitialStock),
+    InitialStock INT NOT NULL,
+    FOREIGN KEY (BookId) REFERENCES Book(Id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
+```
+The table has the following relationship:\
+One `Stock` can only be linked to one `Book`
+
+The table has the following attributes:\
+| Attributes     | Description                                                                     |
+|----------------|---------------------------------------------------------------------------------|
+|`Id`            | The unique identifier of the table which is configured with UUID [`PRIMARY KEY`] |
+|`Stock`         | The current available stock |
+|`Initial Stock` | The total stock the library has including the books borrowed |
+|`BookId`        | Refers to the `Id` of the `Book` [`FOREIGN KEY`] |
+
+### 5. Reservation
+```sql
+CREATE TABLE Reservation (
+    BookId CHAR(36) NOT NULL,
+    UserId CHAR(36) NOT NULL,
+    ReserveDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(BookId, UserId),
+    FOREIGN KEY (BookId) REFERENCES Book(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (UserId) REFERENCES `User`(Id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
+```
+The table has the following relationship:\
+One `Reservation` can only be linked to one `Book` and one `User` and can only have one `Loan`
+
+The table has the following attributes:\
+| Attributes        | Description                                                                     |
+|-------------------|---------------------------------------------------------------------------------|
+|`BookId`           | Refers to the `Id` of the `User` [`FOREIGN KEY`] |
+|`UserId`           | Refers to the `Id` of the `Book` [`FOREIGN KEY`]  |
+|`Reservation Date` | The time the book is reserved |
+
+### 6. Loan
+```sql
+CREATE TABLE Loan (
+    Id CHAR(36) PRIMARY KEY DEFAULT UUID(),
+    LoanDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ReturnDate TIMESTAMP NULL,
+    BookId CHAR(36) NOT NULL,
+    UserId CHAR(36) NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES `User`(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (BookId) REFERENCES Book(Id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
+```
+The table has the following relationship:\
+One `Loan` can only be linked to one `Reservation`
+
+The table has the following attributes:\
+| Attributes     | Description                                                                     |
+|----------------|---------------------------------------------------------------------------------|
+|`Id`            | The unique identifier of the table which is configured with UUID [`PRIMARY KEY`] |
+|`LoanDate`      | The time the book is loaned |
+|`Return Date`   | The time the book is returned |
+|`BookId`        | Refers to the `Id` of the `Book` from the table `Reservation` [`FOREIGN KEY`] |
+|`UserId`        | Refers to the `Id` of the `User` from the table `Reservation` [`FOREIGN KEY`] |
+
+## Storage Management
+
 
 ## SSL Encryption Set Up
 
@@ -91,7 +159,7 @@ Add the following lines at the end of `httpd-vhosts.conf` file located in `.../x
  </VirtualHost>
 ```
 ### 2. Create Certificate
-Generate SSL Certificate by running `makecert.bat` in `xampp/apache` and fill in your data. You can simply enter to fill the data with its default data provided.
+Generate SSL Certificate by running `makecert.bat` in `xampp/apache` and fill in your data. You can simply enter to fill the data with its default data provided.\
 ![sslMakecert](assets/sslMakecert.png)
 After the setup, the files `ssl.crt/server.crt` and `ssl.key/server.key` should be created in `.../xampp/apache/conf`. These are the files needed for apache to validate the security protocol.
 ### 3. Modifying Virtual Host
