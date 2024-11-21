@@ -2,8 +2,66 @@
 
 This project is a database management system project that is developed for the needs of B27's Database Technology course. The management system includes several important aspects of DBMS, from `indexing`, `storage management`, `procedures and triggers` to `full text search` and `backup and restoration`.
 
-## Design and Schema Creation
-![ERD](erd/Entity Relationship Diagram Library Database.jpg)
+## Design Creation
+Entity Relationship Diagram:
+![ERD](erd/EntityRelationshipDiagramLibraryDatabase.jpg)
+The Entity Relationship Diagram above is created with having 6 tables which are `User`, `Author`, `Book`, `Stock`, `Reservation`, and `Loan`.
+
+## Schema Creation
+Entities and Relationships:
+### 1. User
+```sql
+CREATE TABLE `User` (
+    Id CHAR(36) PRIMARY KEY DEFAULT UUID(),
+    Name VARCHAR(100) NOT NULL,
+    Address VARCHAR(100) NOT NULL
+) ENGINE = InnoDB;
+```
+The table has the following relationship:
+One `User` can have many `Reservations`
+
+The table has the following attributes:
+`Id`         : The unique idenfier of the table which is configured with UUID [`PRIMARY KEY`]
+`Name`       : The name of the user
+`Address`    : The address of the user
+
+### 2. Author
+```sql
+CREATE TABLE Author (
+    Id CHAR(36) PRIMARY KEY DEFAULT UUID(),
+    Name VARCHAR(100) NOT NULL,
+    Birthdate date NOT NULL,
+    FULLTEXT(Name)
+) ENGINE = InnoDB;
+```
+The table has the following relationship:
+One `Author` can have many `Books`
+
+The table has the following attributes:
+`Id`         : The unique identifier of the table which is configured with UUID [`PRIMARY KEY`]
+`Name`       : The name of the author. Added `FULLTEXT` for fast searching.
+`Birthdate`  : The birthdate of the author
+
+### 3. Book
+```sql
+CREATE TABLE Book (
+    Id CHAR(36) PRIMARY KEY DEFAULT UUID(),
+    ISBN CHAR(17) UNIQUE NOT NULL,
+    CHECK(ISBN REGEXP'^(978|979)-[0-9]{1,5}-[0-9]{1,7}-[0-9]{1,7}-[0-9]$'),
+    Title VARCHAR(100) NOT NULL,
+    AuthorId VARCHAR(100) NOT NULL,
+    FOREIGN KEY (AuthorId) REFERENCES Author(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FULLTEXT(Title)
+) ENGINE = InnoDB;
+```
+The table has the following relationship:
+One `Book` can have many `Reservation` but can only have one `Stock`
+
+The table has the following attributes:
+`Id`         : The unique identifier of the table which is configured with UUID
+`ISBN`       : The unique code of each book. Added `CHECK` to make sure the `ISBN` is valid.
+`Title`      : The book title
+`AuthorId`   : Refers to the `Id` of the `Author`
 
 ## SSL Encryption Set Up
 
