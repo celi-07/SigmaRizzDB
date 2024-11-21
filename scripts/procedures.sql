@@ -91,7 +91,7 @@ BEGIN
         ROLLBACK;
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Failed [7]: Book has not been Returned';
     ELSEIF curr_stock > 0 THEN 
-        INSERT INTO Loan(LoanDate, BookId, UserId)
+        INSERT INTO Loan(ReturnDate, BookId, UserId)
         VALUES(NULL, book_id, user_id);
 
         COMMIT;
