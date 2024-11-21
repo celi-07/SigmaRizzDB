@@ -109,14 +109,22 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER onInsertLoan
-    AFTER INSERT
-    ON Loan
-    FOR EACH ROW
-BEGIN
-    UPDATE Stock
-    SET Stock = Stock - 1
-    WHERE BookId = NEW.bookId;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER onInsertLoan
+
+    AFTER INSERT
+
+    ON Loan
+
+    FOR EACH ROW
+
+BEGIN
+
+    UPDATE Stock
+
+    SET Stock = Stock - 1
+
+    WHERE BookId = NEW.bookId;
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
