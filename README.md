@@ -18,17 +18,12 @@ CREATE TABLE `User` (
     Address VARCHAR(100) NOT NULL
 ) ENGINE = InnoDB;
 ```
-The table has the following relationship:
-
+The table has the following relationship:\
 One `User` can have many `Reservations`
 
-
-The table has the following attributes:
-
-`Id`         : The unique idenfier of the table which is configured with UUID [`PRIMARY KEY`]
-
-`Name`       : The name of the user
-
+The table has the following attributes:\
+`Id`         : The unique idenfier of the table which is configured with UUID [`PRIMARY KEY`]\
+`Name`       : The name of the user\
 `Address`    : The address of the user
 
 ### 2. Author
