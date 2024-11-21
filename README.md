@@ -4,8 +4,9 @@ This project is a database management system project that is developed for the n
 
 ## Design Creation
 Entity Relationship Diagram:
+The Entity Relationship Diagram below is created with having 6 tables which are `User`, `Author`, `Book`, `Stock`, `Reservation`, and `Loan`.
+
 ![ERD](erd/EntityRelationshipDiagramLibraryDatabase.jpg)
-The Entity Relationship Diagram above is created with having 6 tables which are `User`, `Author`, `Book`, `Stock`, `Reservation`, and `Loan`.
 
 ## Schema Creation
 Entities and Relationships:
@@ -18,11 +19,16 @@ CREATE TABLE `User` (
 ) ENGINE = InnoDB;
 ```
 The table has the following relationship:
+
 One `User` can have many `Reservations`
 
+
 The table has the following attributes:
+
 `Id`         : The unique idenfier of the table which is configured with UUID [`PRIMARY KEY`]
+
 `Name`       : The name of the user
+
 `Address`    : The address of the user
 
 ### 2. Author
@@ -35,11 +41,15 @@ CREATE TABLE Author (
 ) ENGINE = InnoDB;
 ```
 The table has the following relationship:
+
 One `Author` can have many `Books`
 
 The table has the following attributes:
+
 `Id`         : The unique identifier of the table which is configured with UUID [`PRIMARY KEY`]
+
 `Name`       : The name of the author. Added `FULLTEXT` for fast searching.
+
 `Birthdate`  : The birthdate of the author
 
 ### 3. Book
