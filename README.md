@@ -3,7 +3,7 @@
 This project is a database management system project that is developed for the needs of B27's Database Technology course. The management system includes several important aspects of DBMS, from `indexing`, `storage management`, `procedures and triggers` to `full text search` and `backup and restoration`.
 
 ## Design and Schema Creation
-
+![ERD](erd/Entity Relationship Diagram Library Database.jpg)
 
 ## SSL Encryption Set Up
 
